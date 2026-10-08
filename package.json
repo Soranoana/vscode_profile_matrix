@@ -1,7 +1,7 @@
 {
     "name": "profile-extension-matrix",
-    "displayName": "Profile Extension Matrix",
-    "description": "View and manage extensions across local VS Code profiles.",
+    "displayName": "%displayName%",
+    "description": "%description%",
     "version": "1.0.2",
     "publisher": "soranoana",
     "repository": {
@@ -16,23 +16,39 @@
     ],
     "activationEvents": [],
     "main": "./out/extension.js",
+    "l10n": "./l10n",
     "icon": "media/icon.png",
     "contributes": {
         "commands": [
             {
                 "command": "profileExtensionMatrix.open",
-                "title": "Profile Extension Matrix: Open"
+                "title": "%command.open.title%"
             },
             {
                 "command": "profileExtensionMatrix.refresh",
-                "title": "Profile Extension Matrix: Refresh"
+                "title": "%command.refresh.title%"
             }
         ],
+        "configuration": {
+            "title": "%displayName%",
+            "properties": {
+                "profileExtensionMatrix.columnWidths": {
+                    "type": "object",
+                    "default": {},
+                    "additionalProperties": {
+                        "type": "number",
+                        "minimum": 1
+                    },
+                    "scope": "application",
+                    "markdownDescription": "%config.columnWidths.description%"
+                }
+            }
+        },
         "viewsContainers": {
             "activitybar": [
                 {
                     "id": "profileExtensionMatrix",
-                    "title": "Profile Extensions",
+                    "title": "%viewsContainer.title%",
                     "icon": "media/profile-extensions.svg"
                 }
             ]
@@ -42,7 +58,7 @@
                 {
                     "type": "webview",
                     "id": "profileExtensionMatrix.matrixView",
-                    "name": "Extension Matrix"
+                    "name": "%view.matrix.name%"
                 }
             ]
         }
@@ -50,7 +66,8 @@
     "scripts": {
         "compile": "tsc -p ./",
         "watch": "tsc -watch -p ./",
-        "vscode:prepublish": "npm run compile"
+        "vscode:prepublish": "npm run compile",
+        "package": "npx --yes @vscode/vsce package --allow-missing-repository --skip-license"
     },
     "devDependencies": {
         "@types/node": "^22.10.1",
